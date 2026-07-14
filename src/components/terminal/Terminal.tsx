@@ -430,7 +430,7 @@ function TerminalInput({
 
   const handleInput = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     onValueChange(e.target.value);
-    onCursorChange(e.target.selectionStart);
+    onCursorChange(e.target.selectionStart ?? 0);
   }, [onValueChange, onCursorChange]);
 
   return (
