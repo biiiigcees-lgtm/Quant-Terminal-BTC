@@ -496,7 +496,7 @@ export function Terminal() {
     toggleOpen,
     setHeight,
     setInputValue,
-    setCursorPosition: moveCursor,
+    moveCursor,
     clearInput,
     executeCommand: storeExecuteCommand,
     navigateHistory,
