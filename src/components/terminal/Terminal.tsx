@@ -540,7 +540,6 @@ export function Terminal() {
     try {
       await cmd.handler(parsed.args, {
         addOutput,
-        addCommand: storeExecuteCommand,
         getMarketService: () => {
           // Dynamic import to avoid circular dependency
           return import('@/lib/market/service').then((m) => m.getMarketService());
