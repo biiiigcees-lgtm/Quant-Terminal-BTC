@@ -1,6 +1,7 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 
-:root {
+@theme {
   --color-terminal-bg: #0d1117;
   --color-terminal-bgSecondary: #161b22;
   --color-terminal-bgTertiary: #21262d;
@@ -272,7 +273,7 @@ body {
   border-bottom: 1px solid var(--color-terminal-borderSecondary);
 }
 
-.table-terminal tr:last-child td {
+.table-terminal tr: last-child td {
   border-bottom: 0;
 }
 
@@ -342,21 +343,9 @@ body {
   background-color: rgba(88, 166, 255, 0.5);
 }
 
-.resize-handle.horizontal {
-  height: 4px;
-  cursor: ns-resize;
-}
-
-.resize-handle.vertical {
-  width: 4px;
-  cursor: ew-resize;
-}
-
-.resize-handle.corner {
-  width: 16px;
-  height: 16px;
-  cursor: nwse-resize;
-}
+.resize-handle.horizontal { height: 4px; cursor: ns-resize; }
+.resize-handle.vertical { width: 4px; cursor: ew-resize; }
+.resize-handle.corner { width: 16px; height: 16px; cursor: nwse-resize; }
 
 /* Terminal output line */
 .terminal-line {
@@ -566,7 +555,7 @@ body {
   background-color: var(--color-terminal-bg);
 }
 
-.tab-button[data-state="active"] {
+.tab-button[ data-state="active" ] {
   color: var(--color-terminal-accent);
   background-color: var(--color-terminal-bg);
   border-color: var(--color-terminal-border);

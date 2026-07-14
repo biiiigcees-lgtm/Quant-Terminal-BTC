@@ -1,5 +1,5 @@
 {
-  "name": "new_project",
+  "name": "quant-terminal",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,9 +9,16 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "ably": "^2.24.0",
+    "ai": "^3.4.0",
+    "date-fns": "^4.4.0",
+    "lightweight-charts": "^4.2.1",
     "next": "16.2.10",
+    "openai": "^4.67.0",
     "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "react-dom": "19.2.4",
+    "zustand": "^5.0.14",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
