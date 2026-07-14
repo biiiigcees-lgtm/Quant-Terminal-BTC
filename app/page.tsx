@@ -250,7 +250,7 @@ export default function QuantTerminal() {
             candles={candles}
             exchange={exchange}
             indicators={selectedIndicators}
-            height={isTerminalOpen ? undefined : 'calc(100vh - 48px)'}
+            height={isTerminalOpen ? undefined : 600}
             onTimeframeChange={handleTimeframeChange}
             onSymbolChange={handleSymbolChange}
             availableSymbols={availableSymbols}
