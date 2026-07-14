@@ -7,7 +7,7 @@
 
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { ChartEngine, TechnicalIndicators, PerformanceMetrics, DEFAULT_CHART_OPTIONS } from '@/lib/charts/chart-engine';
-import type { ChartDataPoint, Timeframe } from '@/types/market';
+import type { ChartDataPoint, Timeframe, ChartOptions } from '@/lib/charts/chart-engine';
 
 // ============================================
 // Types
