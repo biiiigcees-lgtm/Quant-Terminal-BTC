@@ -77,7 +77,7 @@ export class MarketDataService {
   private updateListeners = new Set<(event: MarketDataEvent) => void>();
   private isInitialized = false;
 
-  constructor(config: MarketServiceConfig = {}) {
+  constructor(config: MarketServiceConfig = DEFAULT_CONFIG) {
     this.config = { ...DEFAULT_CONFIG, ...config };
     this.wsManager = getWSManager(this.config.wsManagerConfig);
     this.cache = this.createEmptyCache();
@@ -228,15 +228,15 @@ export class MarketDataService {
     switch (channel) {
       case 'ticker':
         normalizedData = this.normalizeTicker(data, symbol, exchange);
-        this.cache.tickers.set(symbol, normalizedData);
+        this.cache.tickers.set(symbol, normalizedData as Ticker);
         break;
       case 'trades':
         normalizedData = this.normalizeTrade(data, symbol, exchange);
-        this.addTrade(symbol, normalizedData);
+        this.addTrade(symbol, normalizedData as Trade);
         break;
       case 'orderbook':
         normalizedData = this.normalizeOrderBook(data, symbol, exchange);
-        this.cache.orderbooks.set(symbol, normalizedData);
+        this.cache.orderbooks.set(symbol, normalizedData as OrderBook);
         break;
       case 'ohlcv_1m':
       case 'ohlcv_5m':
@@ -245,15 +245,15 @@ export class MarketDataService {
       case 'ohlcv_4h':
       case 'ohlcv_1d':
         normalizedData = this.normalizeCandle(data, symbol, exchange);
-        this.addCandle(symbol, channel as Timeframe, normalizedData);
+        this.addCandle(symbol, channel as Timeframe, normalizedData as ChartDataPoint);
         break;
       case 'funding':
         normalizedData = this.normalizeFundingRate(data, symbol, exchange);
-        this.cache.fundingRates.set(symbol, normalizedData);
+        this.cache.fundingRates.set(symbol, normalizedData as FundingRate);
         break;
       case 'open_interest':
         normalizedData = this.normalizeOpenInterest(data, symbol, exchange);
-        this.cache.openInterest.set(symbol, normalizedData);
+        this.cache.openInterest.set(symbol, normalizedData as OpenInterest);
         break;
     }
 

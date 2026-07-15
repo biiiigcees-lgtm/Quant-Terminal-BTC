@@ -15,6 +15,8 @@ import type {
   Timeframe,
   Exchange,
 } from '@/types/market';
+import type { MarketDataService } from '@/lib/market/service';
+import { getMarketService } from '@/lib/market/service';
 
 // ============================================
 // Types
@@ -163,6 +165,9 @@ export interface TerminalActions {
   setShowTimestamps: (show: boolean) => void;
   setShowCommandNumbers: (show: boolean) => void;
   setWordWrap: (wrap: boolean) => void;
+
+    // Market Service Access
+    getMarketService: () => MarketDataService;
 
   // Utility
   reset: () => void;
@@ -440,6 +445,11 @@ export const useTerminalStore = create<TerminalState & TerminalActions>()(
     setShowTimestamps: (show) => set({ showTimestamps: show }),
     setShowCommandNumbers: (show) => set({ showCommandNumbers: show }),
     setWordWrap: (wrap) => set({ wordWrap: wrap }),
+
+    // ============================================
+    // Market Service Access
+    // ============================================
+    getMarketService: (): MarketDataService => getMarketService(),
 
     // ============================================
     // Utility

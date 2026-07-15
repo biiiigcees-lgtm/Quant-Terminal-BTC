@@ -1034,7 +1034,5 @@ registerCommand({
 });
 
 // ============================================
-// Export all
+// End of module
 // ============================================
-
-export { commands, getCommand, getAllCommands, getCommandsByCategory, getCommandCompletions, parseCommand };

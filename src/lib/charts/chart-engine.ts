@@ -3,7 +3,7 @@
  * Supports candlestick, volume, indicators, and real-time updates
  */
 
-import type { ChartDataPoint, Timeframe, TechnicalIndicators } from '@/types/market';
+import type { ChartDataPoint, Timeframe } from '@/types/market';
 
 // ============================================
 // Types
@@ -24,8 +24,8 @@ export interface ChartOptions {
   };
   crosshair?: {
     mode: number;
-    vertLine: { color: string; style: number; width: number; visible: boolean; labelBackgroundColor: string };
-    horzLine: { color: string; style: number; width: number; visible: boolean; labelBackgroundColor: string };
+    vertLine: { color: string; style: number; width: 1 | 2 | 3 | 4; visible: boolean; labelBackgroundColor: string };
+    horzLine: { color: string; style: number; width: 1 | 2 | 3 | 4; visible: boolean; labelBackgroundColor: string };
   };
   rightPriceScale?: {
     borderColor: string;

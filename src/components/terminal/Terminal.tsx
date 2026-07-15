@@ -489,31 +489,35 @@ export function Terminal() {
   const connection = useTerminalStore(selectConnection);
   const settings = useTerminalStore(selectSettings);
 
-  // Actions
-  const {
-    setFocused,
-    setExpanded,
-    toggleOpen,
-    setHeight,
-    setInputValue,
-    moveCursor,
-    clearInput,
-    executeCommand: storeExecuteCommand,
-    navigateHistory,
-    addOutput,
-    setAutocompleteSuggestions,
-    setAutocompleteIndex,
-    setAutocompleteOpen,
-    setAutocompletePrefix,
-    applyAutocomplete,
-    setCommandPaletteOpen,
-    setCommandPaletteQuery,
-    setCommandPaletteIndex,
-    setAIStreaming,
-    setCurrentAIResponse,
-    appendAIResponse,
-    setConnectionStatus,
-  } = useTerminalStore();
+    // Actions
+    const {
+      setFocused,
+      setExpanded,
+      toggleOpen,
+      setHeight,
+      setInputValue,
+      moveCursor,
+      clearInput,
+      executeCommand: storeExecuteCommand,
+      navigateHistory,
+      addOutput,
+      setAutocompleteSuggestions,
+      setAutocompleteIndex,
+      setAutocompleteOpen,
+      setAutocompletePrefix,
+      applyAutocomplete,
+      setCommandPaletteOpen,
+      setCommandPaletteQuery,
+      setCommandPaletteIndex,
+      setAIStreaming,
+      setCurrentAIResponse,
+      appendAIResponse,
+      setConnectionStatus,
+      getMarketService,
+    } = useTerminalStore();
+
+    // Create market service instance
+    const marketService = getMarketService();
 
   // Refs
   const terminalRef = useRef<HTMLDivElement>(null);
@@ -541,10 +545,11 @@ export function Terminal() {
       await cmd.handler(parsed.args, {
         addOutput,
         getMarketService: () => {
-          // Dynamic import to avoid circular dependency
-          return import('@/lib/market/service').then((m) => m.getMarketService());
+          // Synchronous access to singleton market service
+          const { getMarketService } = require('@/lib/market/service');
+          return getMarketService();
         },
-      });
+      } as any);
     } catch (error) {
       addOutput({ type: 'error', content: `Error: ${error instanceof Error ? error.message : String(error)}`, timestamp: Date.now() });
     }
@@ -657,7 +662,7 @@ export function Terminal() {
 
   // Keyboard shortcuts
   useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
+    const handleKeyDown = (e: globalThis.KeyboardEvent) => {
       // Ctrl+` to toggle terminal
       if ((e.ctrlKey || e.metaKey) && e.key === '`') {
         e.preventDefault();

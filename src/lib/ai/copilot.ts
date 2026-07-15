@@ -11,6 +11,7 @@ import { xai } from '@ai-sdk/xai';
 import { z } from 'zod';
 import type { TerminalOutput, ChartDataPoint, Ticker, OrderBook, Trade, MarketChannel } from '@/types/market';
 import { getMarketService } from '@/lib/market/service';
+import { TechnicalIndicators, PerformanceMetrics } from '@/lib/charts/chart-engine';
 
 // ============================================
 // Configuration
@@ -82,7 +83,7 @@ const getCandlesTool = tool({
   parameters: z.object({
     symbol: z.string().describe('Trading symbol'),
     timeframe: z.enum(['1m', '5m', '15m', '1h', '4h', '1d', '1w']).default('1h'),
-    limit: z.number().default(100).max(5000),
+    limit: z.number().max(5000).default(100),
     exchange: z.enum(['binance', 'coinbase', 'kraken', 'bybit', 'okx']).optional().default('binance'),
   }),
   execute: async ({ symbol, timeframe, limit, exchange }) => {
@@ -116,7 +117,7 @@ const getOrderBookTool = tool({
   description: 'Get order book depth for a symbol',
   parameters: z.object({
     symbol: z.string().describe('Trading symbol'),
-    levels: z.number().default(20).max(100),
+    levels: z.number().max(100).default(20),
     exchange: z.enum(['binance', 'coinbase', 'kraken', 'bybit', 'okx']).optional().default('binance'),
   }),
   execute: async ({ symbol, levels, exchange }) => {
@@ -143,7 +144,7 @@ const getTradesTool = tool({
   description: 'Get recent trades (time & sales) for a symbol',
   parameters: z.object({
     symbol: z.string().describe('Trading symbol'),
-    limit: z.number().default(50).max(200),
+    limit: z.number().max(200).default(50),
     exchange: z.enum(['binance', 'coinbase', 'kraken', 'bybit', 'okx']).optional().default('binance'),
   }),
   execute: async ({ symbol, limit, exchange }) => {
@@ -464,8 +465,6 @@ export async function streamChat(
     tools: marketTools,
     temperature: config.temperature ?? 0.3,
     maxTokens: config.maxTokens ?? 4096,
-    onToolCall: onToolCall ? (toolCall) => onToolCall(toolCall.toolName, toolCall.args) : undefined,
-    onToolResult: onToolResult ? (toolResult) => onToolResult(toolResult.toolName, toolResult.result) : undefined,
   });
 
   return result;

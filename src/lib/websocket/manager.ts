@@ -13,6 +13,7 @@ import type {
   SubscriptionConfig,
   WSMessage,
 } from '@/types/market';
+import { getMarketService } from '@/lib/market/service';
 
 // ============================================
 // Configuration
@@ -104,10 +105,6 @@ export class WebSocketManager {
       this.ably = new Realtime({
         key: this.config.ablyKey,
         clientId: `quant-terminal-${Date.now()}`,
-        autoConnect: true,
-        disconnectedRetryTimeout: this.config.reconnectInterval,
-        suspendedRetryTimeout: this.config.reconnectInterval * 2,
-        maxRetryCount: this.config.maxReconnectAttempts,
       });
 
       this.ably.connection.on((stateChange) => {
